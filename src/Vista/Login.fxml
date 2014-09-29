@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControlLogin">
+   
+    <stylesheets>
+        <URL value="@login.css" />
+    </stylesheets>
+    <cursor>
+     
+   </cursor>
+   
+   <children>
+      <ImageView fitHeight="342.0" fitWidth="406.0" layoutX="5.0" layoutY="60.0" opacity="0.22" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/database-512.png" />
+         </image>
+      </ImageView>
+      <Button id="connect" fx:id="connect" alignment="CENTER" layoutX="488.0" layoutY="305.0" mnemonicParsing="false" onAction="#ConnectButtomAction" prefHeight="25.0" prefWidth="85.0" text="Connect" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         
+      </Button>
+      <Label layoutX="79.0" layoutY="114.0" text="Host:" />
+      <CheckBox id="Hostcheck" fx:id="Hostcheck" layoutX="352.0" layoutY="113.0" mnemonicParsing="false" onAction="#HostCheckAction" text="Default Host" />
+      <TextField fx:id="Hostinput" layoutX="147.0" layoutY="110.0" />
+      <Label layoutX="78.0" layoutY="170.0" text="Port:" />
+      <TextField fx:id="Portinput" layoutX="154.0" layoutY="165.0" prefHeight="25.0" prefWidth="67.0" />
+      <CheckBox fx:id="Portcheck" layoutX="352.0" layoutY="176.0" mnemonicParsing="false" onAction="#PortCheckAction" text="Default Port" />
+      <Label layoutX="76.0" layoutY="236.0" text="Username:" />
+      <Label layoutX="76.0" layoutY="298.0" text="Password:" />
+      <TextField fx:id="Usernameinput" layoutX="154.0" layoutY="231.0" />
+      <PasswordField fx:id="Passwordinput" layoutX="154.0" layoutY="293.0" />
+      <Label layoutX="77.0" layoutY="350.0" prefHeight="15.0" prefWidth="34.0" text="SID:" />
+      <TextField fx:id="SIDInput" layoutX="154.0" layoutY="345.0" />
+      <CheckBox fx:id="SIDcheck" layoutX="352.0" layoutY="349.0" mnemonicParsing="false" onAction="#SIDCheckAction" text="Default SID" />
+      <CheckBox fx:id="UsernameCheck" layoutX="355.0" layoutY="235.0" mnemonicParsing="false" onAction="#UsernameCheckAction" text="Default Username" />
+      <Label id="Titulo" layoutX="133.0" layoutY="14.0" prefHeight="47.0" prefWidth="354.0" text="Data Base Monitor" textAlignment="CENTER" />
+   </children>
+</AnchorPane>

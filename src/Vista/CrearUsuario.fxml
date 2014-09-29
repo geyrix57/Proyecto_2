@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="561.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controlador.CrearUsuarioController">
+   <children>
+      <TitledPane animated="false" collapsible="false" layoutX="48.0" layoutY="7.0" prefHeight="400.0" prefWidth="561.0" text="Registro Usuarios" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="67.0" prefWidth="561.0" spacing="20.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="74.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Nombre">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nombre" prefHeight="25.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="74.0" prefWidth="200.0">
+                           <children>
+                              <Label text="e-mail">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="email" prefHeight="25.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="guardar" mnemonicParsing="false" onAction="#guardarAction" text="Guardar" />
+                     </children>
+                  </HBox>
+                  <Separator layoutX="-1.0" layoutY="67.0" prefHeight="14.0" prefWidth="563.0" />
+                  <HBox alignment="CENTER" layoutY="81.0" prefHeight="31.0" prefWidth="563.0">
+                     <children>
+                        <TextField fx:id="bRoles" prefWidth="200.0" promptText="Buscar Roles" />
+                     </children>
+                  </HBox>
+                  <TableView fx:id="tabla" prefHeight="234.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <columns>
+                        <TableColumn fx:id="rol" prefWidth="261.9999634027481" text="Rol" />
+                        <TableColumn fx:id="agregar" prefWidth="155.0" text="Agregar" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </children>
+</AnchorPane>

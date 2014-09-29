@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="434.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.RegistroController">
+   <children>
+      <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="693.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane layoutY="25.0" prefHeight="409.0" prefWidth="692.0">
+         <children>
+            <TabPane prefHeight="409.0" prefWidth="692.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Tablas">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TreeTableView fx:id="tablas" layoutX="13.0" layoutY="52.0" prefHeight="315.0" prefWidth="667.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0">
+                                <columns>
+                                  <TreeTableColumn fx:id="ts" prefWidth="177.0" text="TableSpaces" />
+                                  <TreeTableColumn fx:id="tb" prefWidth="451.0" text="Tablas">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Crear Permiso" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu>
+                                    </TreeTableColumn>
+                                </columns>
+                              </TreeTableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Permisos">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="Tbpermisos" layoutX="11.0" layoutY="62.0" prefHeight="304.0" prefWidth="667.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0">
+                                <columns>
+                                  <TableColumn fx:id="nivel" prefWidth="147.0" text="Nivel" />
+                                    <TableColumn fx:id="desc" prefWidth="168.0" text="Descripcion" />
+                                  <TableColumn fx:id="tbPerm" prefWidth="173.0" text="Tabla" />
+                                </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" layoutY="12.0" prefHeight="41.0" prefWidth="692.0" AnchorPane.bottomAnchor="327.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0">
+                                 <children>
+                                    <TextField fx:id="bperm" prefHeight="25.0" prefWidth="244.0" promptText="Buscar Nivel" />
+                                 </children>
+                              </HBox>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Roles">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER" layoutY="11.0" prefHeight="41.0" prefWidth="692.0" AnchorPane.bottomAnchor="327.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0">
+                                 <children>
+                                    <TextField fx:id="bRole" prefHeight="25.0" prefWidth="244.0" promptText="Buscar Rol" />
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="Tbroles" layoutX="10.0" layoutY="66.0" prefHeight="304.0" prefWidth="667.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0">
+                                <columns>
+                                  <TableColumn fx:id="rol" prefWidth="193.0" text="Rol" />
+                                  <TableColumn fx:id="rolDesc" prefWidth="204.0" text="Descripcion" />
+                                </columns>
+                              </TableView>
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Usuarios">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="41.0" prefWidth="692.0" AnchorPane.bottomAnchor="327.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0">
+                                 <children>
+                                    <TextField fx:id="bUsuario" prefHeight="25.0" prefWidth="244.0" promptText="Buscar Usuario" />
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="TbUsuarios" layoutX="13.0" layoutY="53.0" prefHeight="304.0" prefWidth="667.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0">
+                                 <columns>
+                                    <TableColumn fx:id="nombreCol" prefWidth="171.0" text="Nombre" />
+                                    <TableColumn fx:id="usuarioSql" prefWidth="152.0" text="Usuario SQL" />
+                                    <TableColumn fx:id="email" prefWidth="149.0" text="Correo" />
+                                 </columns>
+                              </TableView>
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
