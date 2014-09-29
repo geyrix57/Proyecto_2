@@ -1,0 +1,41 @@
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+#Titulo{
+   -fx-font-size: 38px;
+   -fx-font-family: "Arial Black";
+   -fx-alignment: CENTER;
+   -fx-text-fill: #2A5058;
+   -fx-fill: #818181;
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+//------------------------------------------------------------------------------
+.button {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+
+//------------------------------------------------------------------------------
+
+.check-box .mark {
+    -fx-shape:
+"M2,0L5,4L8,0L10,0L10,2L6,5L10,8L10,10L8,10L5,6L2,10L0,10L0,8L4,5L0,2L0,0Z";
+}
+.check-box:selected .mark {
+    -fx-background-color: #2A5058//#61a2b1;
+}
+
+//------------------------------------------------------------------------------

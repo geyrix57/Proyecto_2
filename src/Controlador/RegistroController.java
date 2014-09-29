@@ -48,6 +48,9 @@ import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -493,14 +496,21 @@ public class RegistroController implements Initializable, Observer {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         menuBar.getMenus().clear();
+        MenuItem a = crearRoleMenuItem();
+        MenuItem b = crearUsuarioMenuItem();
+        MenuItem c = crearConeccionMenuItem();
+        
+        a.setAccelerator(new KeyCodeCombination(KeyCode.R,KeyCombination.CONTROL_DOWN));
+        b.setAccelerator(new KeyCodeCombination(KeyCode.U,KeyCombination.CONTROL_DOWN));
+        c.setAccelerator(new KeyCodeCombination(KeyCode.N,KeyCombination.CONTROL_DOWN));
         
         Menu menu = new Menu("Crear");
-        menu.getItems().add(crearRoleMenuItem());
-        menu.getItems().add(crearUsuarioMenuItem());
+        menu.getItems().add(a);
+        menu.getItems().add(b);
         menuBar.getMenus().add(menu);
         
         menu = new Menu("Coneccion");
-        menu.getItems().add(crearConeccionMenuItem());
+        menu.getItems().add(c);
         menuBar.getMenus().add(menu);
         
         basedatos.addObserver(this);
