@@ -16,31 +16,39 @@ import javafx.beans.property.StringProperty;
  * @author Geykel
  */
 public class Usuario {
-    public Usuario(String nombre, String SqlName, String email, ArrayList<Integer> roles){
-        this.nombre =  new SimpleStringProperty(nombre);
-        this.email = new SimpleStringProperty(email);
+    public Usuario(String SqlName, ArrayList<Integer> roles){
+        //this.nombre =  new SimpleStringProperty(nombre);
+        //this.email = new SimpleStringProperty(email);
         this.sqlName = new SimpleStringProperty(SqlName);
         this.roles = roles;
         this.hashcode = SqlName.hashCode();
     }
     
     public Usuario(){
-        this.nombre =  new SimpleStringProperty();
-        this.email = new SimpleStringProperty();
+        //this.nombre =  new SimpleStringProperty();
+        //this.email = new SimpleStringProperty();
         this.sqlName = new SimpleStringProperty();
         this.roles = new ArrayList();
         this.hashcode = 0;
     }
     
+    public Usuario(String nombre){
+        //this.nombre =  new SimpleStringProperty();
+        //this.email = new SimpleStringProperty();
+        this.sqlName = new SimpleStringProperty(nombre);
+        this.roles = new ArrayList();
+        this.hashcode = nombre.hashCode();
+    }
+    
     public Usuario(Usuario u){
-        this.nombre =  new SimpleStringProperty(u.getNombre());
+//        this.nombre =  new SimpleStringProperty(u.getNombre());
         this.sqlName = new SimpleStringProperty(u.getSqlName());
-        this.email = new SimpleStringProperty(u.getEmail());
+//        this.email = new SimpleStringProperty(u.getEmail());
         this.roles = (ArrayList)u.getRoles().clone();
         this.hashcode = u.getHashCode();
     }
     
-    public String getNombre() {
+    /*public String getNombre() {
         return nombre.get();
     }
     
@@ -50,7 +58,7 @@ public class Usuario {
     
     public StringProperty nombreProperty() {
 	return nombre;
-    }
+    }*/
     
     public String getSqlName(){
         return this.sqlName.get();
@@ -65,7 +73,7 @@ public class Usuario {
         return this.sqlName;
     }
     
-    public String getEmail() {
+    /*public String getEmail() {
         return email.get();
     }
     
@@ -75,7 +83,7 @@ public class Usuario {
     
     public StringProperty emailProperty() {
 	return email;
-    }
+    }*/
 
     public ArrayList<Integer> getRoles() {
         return roles;
@@ -100,43 +108,50 @@ public class Usuario {
     
     public String generarSqlRol(){
         StringBuilder sql;
-        sql = new StringBuilder("CREATE ROLE ").append(this.getSqlName());
+        sql = new StringBuilder("CREATE USER ").append(this.getSqlName()).append(" IDENTIFIED BY ").append("clave");
         return sql.toString();
     }
     
     public String generarDropRole(){
         StringBuilder sql = new StringBuilder();
-        sql.append("DROP ROLE ").append(this.getSqlName());
+        sql.append("DROP USER ").append(this.getSqlName());
         return sql.toString();
     }
 
     public String generarSqlRolUsuario(){
         StringBuilder sql = new StringBuilder("GRANT ");
+        StringBuilder perm = null;
+        Roles rls = Roles.getInstance();
+        for(Integer i:roles){
+            if(perm == null){
+                perm = new StringBuilder(rls.getRol(i).getNombre());
+            }
+            else{
+                perm.append(", ").append(rls.getRol(i).getNombre());
+            }
+        }
+        return sql.append(perm).append(" TO ").append(this.getSqlName()).toString();
+    }
+    
+    public String generarRevokeSql(){
         StringBuilder rev = new StringBuilder("REVOKE ");
         StringBuilder perm = null;
         Roles rls = Roles.getInstance();
         for(Integer i:roles){
             if(perm == null){
                 perm = new StringBuilder(rls.getRol(i).getNombre());
-                rev.append(rls.getRol(i).getNombre());
             }
             else{
                 perm.append(", ").append(rls.getRol(i).getNombre());
-                rev.append(", ").append(rls.getRol(i).getNombre());
             }
         }
-        this.revoke = rev.append(" FROM ").append(this.getSqlName()).toString();
-        return sql.append(perm).append(" TO ").append(this.getSqlName()).toString();
+        return rev.append(perm).append(" FROM ").append(this.getSqlName()).toString();
     }
     
-    public String generarRevokeSql(){
-        return revoke;
-    }
-    
-    private String revoke = null;
-    private final StringProperty nombre;
+    //private String revoke = null;
+    //private final StringProperty nombre;
     private final StringProperty sqlName;
-    private final StringProperty email;
+    //private final StringProperty email;
     private int hashcode;
     private final ArrayList<Integer> roles; 
 }

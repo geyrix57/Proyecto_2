@@ -106,12 +106,12 @@ public class RegistroController implements Initializable, Observer {
     TextField bUsuario;
     @FXML
     TableView<Usuario> TbUsuarios;
-    @FXML
-    TableColumn<Usuario, String> nombreCol;
+    /*@FXML
+    TableColumn<Usuario, String> nombreCol;*/
     @FXML
     TableColumn<Usuario, String> usuarioSql;
-    @FXML
-    TableColumn<Usuario, String> email;
+    /*@FXML
+    TableColumn<Usuario, String> email;*/
     private final Usuarios usuarios = Usuarios.getInstance();
     private final ObservableList<Usuario> masterDataUsuarios = FXCollections.observableArrayList();
     
@@ -371,7 +371,7 @@ public class RegistroController implements Initializable, Observer {
             try {
                 basedatos.ExecuteQuery(u.generarRevokeSql());
                 basedatos.ExecuteQuery(u.generarDropRole());
-            //*/System.out.println(u.generarRevokeSql());System.out.println(u.generarDropRole());
+                //*/System.out.println(u.generarRevokeSql());System.out.println(u.generarDropRole());
                 usuarios.eliminarUsuario(u);
                 InformationDialog("El usuario ha sido eliminado!!!");
             } catch (SQLException ex) {
@@ -388,11 +388,11 @@ public class RegistroController implements Initializable, Observer {
     }
     
     private void initializeTabUsuarios(){
-        nombreCol.setCellValueFactory(new PropertyValueFactory("nombre"));
+        //nombreCol.setCellValueFactory(new PropertyValueFactory("nombre"));
         usuarioSql.setCellValueFactory(new PropertyValueFactory("sqlName"));
-        email.setCellValueFactory(new PropertyValueFactory("email"));
+        //email.setCellValueFactory(new PropertyValueFactory("email"));
         
-        masterDataUsuarios.addAll(usuarios.getUsuarios());
+        //masterDataUsuarios.addAll(usuarios.getUsuarios());
         FilteredList<Usuario> filteredData = new FilteredList<>(masterDataUsuarios, u -> true);
         SortedList<Usuario> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(TbUsuarios.comparatorProperty());
@@ -402,12 +402,7 @@ public class RegistroController implements Initializable, Observer {
             filteredData.setPredicate(u -> {
                 if (newValue == null || newValue.isEmpty()) return true;
                 String lowerCaseFilter = newValue.toLowerCase();
-                return u.getNombre().toLowerCase().contains(lowerCaseFilter);
-		/*if(u.getNombre().toLowerCase().contains(lowerCaseFilter))
-                    return true;
-                else if(u.getSqlName().toLowerCase().contains(lowerCaseFilter))
-                    return true;
-                else return false;*/
+                return u.getSqlName().toLowerCase().contains(lowerCaseFilter);
             });
 	});
         

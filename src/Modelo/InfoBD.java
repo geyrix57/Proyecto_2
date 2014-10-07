@@ -8,10 +8,12 @@ package Modelo;
 import Modelo.BaseDatos.DataBase;
 import Modelo.Clasificacion.Permiso;
 import Modelo.Clasificacion.Rol;
+import Modelo.Clasificacion.Usuario;
 import Modelo.Entidades.Columna;
 import Modelo.Entidades.ObjetoBD;
 import Modelo.EsquemaClasificacion.Privilegios;
 import Modelo.EsquemaClasificacion.Roles;
+import Modelo.EsquemaClasificacion.Usuarios;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -136,11 +138,32 @@ public class InfoBD {
             roles.agregarRol(r);
         }
     }
+    
+    public void cargarUsuarios() throws SQLException{
+        String sql = "SELECT USERNAME FROM DBA_USERS";
+        Usuarios users = Usuarios.getInstance();
+        ArrayList<Usuario> usuarios = new ArrayList();
+        ResultSet result = this.database.ExecuteQuery(sql);
+        while (result.next()) {
+            String cname = result.getString("USERNAME");
+            usuarios.add(new Usuario(cname));
+        }
+        result.getStatement().close();
+        for(Usuario u:usuarios){
+            sql = "SELECT GRANTEE,GRANTED_ROLE FROM DBA_ROLE_PRIVS WHERE GRANTEE='"+u.getSqlName()+"'";
+            result = this.database.ExecuteQuery(sql);
+            while (result.next()) {
+                u.agregarRol(result.getString("GRANTED_ROLE").hashCode());
+            }
+            users.agregarUsuario(u);
+        }
+    }
 
     public boolean cargarDatos() throws SQLException {
         ActualizarTablespace();
         ActualizarListaTablas();
         cargarRoles();
+        cargarUsuarios();
         return true;
     }
 

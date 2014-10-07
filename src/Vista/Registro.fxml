@@ -92,9 +92,7 @@
                               </HBox>
                               <TableView fx:id="TbUsuarios" layoutX="13.0" layoutY="53.0" prefHeight="304.0" prefWidth="667.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0">
                                  <columns>
-                                    <TableColumn fx:id="nombreCol" prefWidth="171.0" text="Nombre" />
-                                    <TableColumn fx:id="usuarioSql" prefWidth="152.0" text="Usuario SQL" />
-                                    <TableColumn fx:id="email" prefWidth="149.0" text="Correo" />
+                                    <TableColumn fx:id="usuarioSql" prefWidth="285.0" text="Usuario SQL" />
                                  </columns>
                               </TableView>
                            </children></AnchorPane>

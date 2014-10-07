@@ -90,37 +90,35 @@ public class CrearUsuarioController implements Initializable {
         if(crear){
             String nom = nombre.getText();
             String des = email.getText();
-            if(des.equals("")) ErrorDialog("Error e-mail","Debe proporcionar un e-mail valido.");
-            else user.setEmail(des);
+            /*if(des.equals("")) ErrorDialog("Error e-mail","Debe proporcionar un e-mail valido.");
+            else user.setEmail(des);*/
             if(nom.equals(""))  ErrorDialog("Error Nombre","Debe proporcionar un nombre valido.");
             else{
-                user.setNombre(nom);
+                user.setSqlName(nom);
                 if(!usuarios.existe(user))
                     if(!user.tieneRoles())ErrorDialog("Error Rol","Debe selecionar al menos un Rol.");
                     else
-                    {/*try {
-                        user.setSqlName(nom);//cambiar el nombre con el que se va a conectar a oracle
+                    try {
                         DataBase.getInstance().ExecuteQuery(user.generarSqlRol());
                         DataBase.getInstance().ExecuteQuery(user.generarSqlRolUsuario());
                         //*/user.setSqlName(nom);System.out.println(user.generarSqlRol());System.out.println(user.generarSqlRolUsuario());
                         usuarios.agregarUsuario(user);
                         InformationDialog("Usuario creado Correctamente!");
                         stage.close();
-                    /*} catch (SQLException ex) {
+                    } catch (SQLException ex) {
                         Logger.getLogger(CrearPermisoController.class.getName()).log(Level.SEVERE, null, ex);
                         this.ExceptionDialog(ex);
-                    }*/}
+                    }
                 else ErrorDialog("Error Nombre","Ya existe un usuario con ese nombre.");
             }
         }
         else{ //modificar
             String des = email.getText();
-            if(des.equals("")) ErrorDialog("Error e-mail","Debe proporcionar un e-mail valido.");
-            else newUser.setEmail(des);
-            
+            /*if(des.equals("")) ErrorDialog("Error e-mail","Debe proporcionar un e-mail valido.");
+            else newUser.setEmail(des);*/
             if(!newUser.tieneRoles())ErrorDialog("Error Rol","Debe selecionar al menos un rol.");
             else
-            {/*try {
+            try {
                     DataBase.getInstance().ExecuteQuery(user.generarRevokeSql());
                     DataBase.getInstance().ExecuteQuery(newUser.generarSqlRolUsuario());
                     //*/System.out.println(user.generarRevokeSql());System.out.println(newUser.generarSqlRolUsuario());
@@ -128,10 +126,10 @@ public class CrearUsuarioController implements Initializable {
                     usuarios.agregarUsuario(newUser);
                     InformationDialog("Usuario Modificado!");
                     stage.close();
-                /*} catch (SQLException ex) {
+                } catch (SQLException ex) {
                     Logger.getLogger(CrearPermisoController.class.getName()).log(Level.SEVERE, null, ex);
                     this.ExceptionDialog(ex);
-                }*/}
+                }
         }
     }
     
@@ -164,9 +162,9 @@ public class CrearUsuarioController implements Initializable {
     
     private void initModificar(Usuario u){
         user = u;
-        nombre.setText(u.getNombre());
+        nombre.setText(u.getSqlName());
         nombre.setDisable(!crear);
-        email.setText(user.getEmail());
+        //email.setText(user.getEmail());
         newUser = new Usuario(user);
         Roles.getInstance().getRoles().stream().forEach((r) -> {
             masterDataRoles.add(new RolSeleccionable(r, newUser, user.getRoles().contains(r.getHashCode())));
