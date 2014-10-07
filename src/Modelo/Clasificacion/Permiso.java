@@ -22,7 +22,7 @@ public class Permiso {
         this.insert = insert;
         this.update = update;
         this.tabla = new SimpleStringProperty(tabla);
-        this.desc = new SimpleStringProperty();
+        //this.desc = new SimpleStringProperty();
         this.hascode = nombre.hashCode();
     }
     public Permiso(Permiso p){
@@ -32,7 +32,7 @@ public class Permiso {
         this.insert = (ArrayList)p.getInsert().clone();
         this.update = (ArrayList)p.getUpdate().clone();
         this.tabla = new SimpleStringProperty(p.getTabla());
-        this.desc = new SimpleStringProperty();
+        //this.desc = new SimpleStringProperty();
         this.ind = p.ind;
         this.hascode = p.getHashCode();
     }
@@ -43,8 +43,19 @@ public class Permiso {
         this.nombre = new SimpleStringProperty();
         this.delete = false;
         this.select = false;
-        this.desc = new SimpleStringProperty();
+        //this.desc = new SimpleStringProperty();
         this.hascode = 0;
+    }
+    
+    public Permiso(String nombre, boolean t){
+        this.tabla = new SimpleStringProperty();
+        this.insert = new ArrayList();
+        this.update = new ArrayList();
+        this.nombre = new SimpleStringProperty(nombre);
+        this.delete = false;
+        this.select = false;
+        //this.desc = new SimpleStringProperty();
+        this.hascode = nombre.hashCode();
     }
 
     public String getTabla() {
@@ -146,28 +157,22 @@ public class Permiso {
     public void eliminar(){ ind--; /*System.out.println(ind);*/}
 
     public String generarSql() {
-        StringBuilder rev = new StringBuilder("REVOKE ");
         StringBuilder sqlT = new StringBuilder("GRANT ");
         StringBuilder sql = new StringBuilder();
         if (this.select) {
             sql.append("SELECT");
-            rev.append("SELECT");
         }
         if (this.delete) {
             if (sql.length() == 0) {
                 sql.append("DELETE");
-                rev.append("DELETE");
             } else {
                 sql.append(", DELETE");
-                rev.append(", DELETE");
             }
         }
         if (!insert.isEmpty()) {
             if (sql.length() == 0) {
-                rev.append("INSERT");
                 sql.append("INSERT (");
             } else {
-                rev.append(", INSERT");
                 sql.append(", INSERT (");
             }
             StringBuilder col = null;
@@ -183,10 +188,8 @@ public class Permiso {
         if (!update.isEmpty()) {
             if (sql.length() == 0) {
                 sql.append("UPDATE (");
-                rev.append("UPDATE");
             } else {
                 sql.append(", UPDATE (");
-                rev.append(", UPDATE");
             }
             StringBuilder col = null;
             for (String i : update) {
@@ -199,26 +202,26 @@ public class Permiso {
             sql.append(col).append(")");
         }
         sqlT.append(sql).append(" ON ").append(tabla.get()).append(" TO ").append(nombre.get());
-        rev.append(" ON ").append(tabla.get()).append(" FROM ").append(nombre.get());
-        revoke = rev.toString();
         return sqlT.toString();
     }
     
     public String generarRevokeSql(){
-        return revoke;
+        StringBuilder sqlT = new StringBuilder("REVOKE ALL PRIVILEGES ON ");
+        sqlT.append(this.getTabla()).append(" FROM ").append(this.getNombre());
+        return sqlT.toString();
     }
 
     public int getHashCode() {
         return this.hascode;
     }
 
-    public String getDesc() {
+    /*public String getDesc() {
         return desc.get();
-    }
+    }*/
 
-    public void setDesc(String desc) {
+    /*public void setDesc(String desc) {
         this.desc.set(desc);
-    }
+    }*/
     
     public StringProperty nombreProperty() {
 	return nombre;
@@ -228,14 +231,13 @@ public class Permiso {
 	return tabla;
     }
     
-    public StringProperty descProperty() {
+    /*public StringProperty descProperty() {
 	return desc;
-    }
+    }*/
    
-    private String revoke = null;
     private final StringProperty nombre;
     private final StringProperty tabla;
-    private final StringProperty desc;
+    //private final StringProperty desc;
     private boolean select;
     private boolean delete;
     private ArrayList<String> insert;

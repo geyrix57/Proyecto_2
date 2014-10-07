@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="561.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controlador.CrearRoleController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.CrearRoleController">
    <children>
       <TitledPane animated="false" collapsible="false" layoutX="6.0" layoutY="7.0" prefHeight="400.0" prefWidth="561.0" text="Registrar Rol" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <content>
@@ -24,16 +23,6 @@
                                  </font>
                               </Label>
                               <TextField fx:id="nombre" prefHeight="25.0" prefWidth="200.0" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="74.0" prefWidth="200.0">
-                           <children>
-                              <Label text="Descripcion">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="desc" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </VBox>
                         <Button fx:id="guardar" mnemonicParsing="false" onAction="#guardarAction" text="Guardar" />

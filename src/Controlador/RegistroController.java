@@ -86,8 +86,8 @@ public class RegistroController implements Initializable, Observer {
     TableColumn<Permiso,String> nivel;
     @FXML
     TableColumn<Permiso,String> tbPerm;
-    @FXML
-    TableColumn<Permiso,String> desc;
+/*    @FXML
+    TableColumn<Permiso,String> desc;*/
     private final Privilegios privs = Privilegios.getInstance();
     private final ObservableList<Permiso> masterDataPermisos = FXCollections.observableArrayList();
     /*----------TabRoles-------------*/
@@ -97,8 +97,8 @@ public class RegistroController implements Initializable, Observer {
     TableView<Rol> Tbroles;
     @FXML
     TableColumn<Rol,String> rol;
-    @FXML
-    TableColumn<Rol,String> rolDesc;
+    /*@FXML
+    TableColumn<Rol,String> rolDesc;*/
     private final Roles roles = Roles.getInstance();
     private final ObservableList<Rol> masterDataRoles = FXCollections.observableArrayList();
     /*----------TabUsuarios-------------------*/
@@ -152,13 +152,19 @@ public class RegistroController implements Initializable, Observer {
         return response == Dialog.Actions.YES;
     }
     
+    private void limpiarDatos(){
+        root.getChildren().stream().forEach((t) -> {
+            ((TreeItem)t).getChildren().clear();
+        });
+        root.getChildren().clear();
+        masterDataUsuarios.clear();
+        masterDataRoles.clear();
+        masterDataPermisos.clear();
+    }
+    
     private void actualizarTabTablas() {
         try {
-            root.getChildren().stream().forEach((t) -> {
-                ((TreeItem)t).getChildren().clear();
-            });
-            root.getChildren().clear();
-            
+            limpiarDatos();
             if (db.cargarDatos()) {
                 db.getTableSpaces().stream().map((tspace) -> {
                     TreeItem<ObjetoBD> tsItem = new TreeItem(tspace);
@@ -221,17 +227,16 @@ public class RegistroController implements Initializable, Observer {
     
     private void eliminarPermiso(Permiso p){
         if(ComfirmDialog("Eliminar Permiso","¿Esta seguro que quiere eliminar el permiso?")){
-            /*try {
+            try {
                 basedatos.ExecuteQuery(p.generarRevokeSql());
-                basedatos.ExecuteQuery(p.generarDropRole());*/
-            System.out.println(p.generarRevokeSql());
-            System.out.println(p.generarDropRole());
+                basedatos.ExecuteQuery(p.generarDropRole());
+                //*/System.out.println(p.generarRevokeSql());System.out.println(p.generarDropRole());
                 privs.eliminarPermiso(p);
                 InformationDialog("El Permiso ha sido eliminado!!!");
-            /*} catch (SQLException ex) {
+            } catch (SQLException ex) {
                 ExceptionDialog(ex);
                 Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
         }
     }
     
@@ -244,9 +249,9 @@ public class RegistroController implements Initializable, Observer {
     private void initializeTabPermisos(){
         nivel.setCellValueFactory(new PropertyValueFactory("nombre"));
         tbPerm.setCellValueFactory(new PropertyValueFactory("tabla"));
-        desc.setCellValueFactory(new PropertyValueFactory("desc"));
+        //desc.setCellValueFactory(new PropertyValueFactory("desc"));
         
-        masterDataPermisos.addAll(privs.getPermisos());
+        //masterDataPermisos.addAll(privs.getPermisos());
         FilteredList<Permiso> filteredData = new FilteredList<>(masterDataPermisos, p -> true);
         SortedList<Permiso> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(Tbpermisos.comparatorProperty());
@@ -294,16 +299,16 @@ public class RegistroController implements Initializable, Observer {
     
     public void eliminarRol(Rol r){
         if(ComfirmDialog("Eliminar Rol","¿Esta seguro que quiere eliminar el Rol?")){
-            /*try {
+            try {
                 basedatos.ExecuteQuery(r.generarRevokeSql());
                 basedatos.ExecuteQuery(r.generarDropRole());
             //*/System.out.println(r.generarRevokeSql());System.out.println(r.generarDropRole());
                 roles.eliminarRol(r);
                 InformationDialog("El rol ha sido eliminado!!!");
-            /*} catch (SQLException ex) {
+            } catch (SQLException ex) {
                 ExceptionDialog(ex);
                 Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
         }
     }
     
@@ -315,9 +320,9 @@ public class RegistroController implements Initializable, Observer {
     
     private void initializeTabRoles(){
         rol.setCellValueFactory(new PropertyValueFactory("nombre"));
-        rolDesc.setCellValueFactory(new PropertyValueFactory("desc"));
+//        rolDesc.setCellValueFactory(new PropertyValueFactory("desc"));
         
-        masterDataRoles.addAll(roles.getRoles());
+        //masterDataRoles.addAll(roles.getRoles());
         FilteredList<Rol> filteredData = new FilteredList<>(masterDataRoles, r -> true);
         SortedList<Rol> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(Tbroles.comparatorProperty());
@@ -363,16 +368,16 @@ public class RegistroController implements Initializable, Observer {
     
     private void eliminarUsuario(Usuario u){
         if(ComfirmDialog("Eliminar Usuario","¿Esta seguro que quiere eliminar el usuario?")){
-            /*try {
+            try {
                 basedatos.ExecuteQuery(u.generarRevokeSql());
                 basedatos.ExecuteQuery(u.generarDropRole());
             //*/System.out.println(u.generarRevokeSql());System.out.println(u.generarDropRole());
                 usuarios.eliminarUsuario(u);
                 InformationDialog("El usuario ha sido eliminado!!!");
-            /*} catch (SQLException ex) {
+            } catch (SQLException ex) {
                 ExceptionDialog(ex);
                 Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
         }
     }
     
@@ -518,7 +523,7 @@ public class RegistroController implements Initializable, Observer {
         roles.addObserver(this);
         usuarios.addObserver(this);
         
-               //basedatos.setConnection("localhost", 1521, "XE", "sys as sysdba", "gkl123");
+               basedatos.setConnection("localhost", 1521, "XE", "sys as sysdba", "gkl123");
                
         initializeTabTablas();
         initializeTabPermisos();

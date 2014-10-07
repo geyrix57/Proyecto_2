@@ -41,8 +41,8 @@ public class CrearRoleController implements Initializable {
     
     @FXML
     TextField nombre;
-    @FXML
-    TextField desc;
+    /*@FXML
+    TextField desc;*/
     @FXML
     Button guardar;
     @FXML
@@ -91,37 +91,37 @@ public class CrearRoleController implements Initializable {
     private void guardarAction(ActionEvent event) {
         if(crear){
             String nom = nombre.getText();
-            String des = desc.getText();
+            /*String des = desc.getText();
             if(des.equals("")) rol.setDesc("Sin descripcion.");
-            else rol.setDesc(des);
+            else rol.setDesc(des);*/
             if(nom.equals(""))  ErrorDialog("Error Nombre","Debe proporcionar un nombre valido.");
             else{
                 rol.setNombre(nom);
                 if(!roles.existe(rol))
                     if(!rol.tienePermisos())ErrorDialog("Error Permiso","Debe selecionar al menos un permiso.");
                     else
-                    {/*try {
+                    try {
                         DataBase.getInstance().ExecuteQuery(rol.generarSqlRol());
                         DataBase.getInstance().ExecuteQuery(rol.generarSqlRolUsuario());
                         //*/System.out.println(rol.generarSqlRol());System.out.println(rol.generarSqlRolUsuario());
                         roles.agregarRol(rol);
                         InformationDialog("Rol creado Correctamente!");
                         stage.close();
-                    /*} catch (SQLException ex) {
+                    } catch (SQLException ex) {
                         Logger.getLogger(CrearPermisoController.class.getName()).log(Level.SEVERE, null, ex);
                         this.ExceptionDialog(ex);
-                    }*/}
+                    }
                 else ErrorDialog("Error Nombre","Ya existe un Rol con ese nombre.");
             }
         }
         else{ //modificar
-            String des = desc.getText();
+            /*String des = desc.getText();
             if(des.equals("")) nuevoRol.setDesc("Sin descripcion.");
-            else nuevoRol.setDesc(des);
+            else nuevoRol.setDesc(des);*/
             
             if(!nuevoRol.tienePermisos())ErrorDialog("Error Permiso","Debe selecionar al menos un permiso.");
             else
-            {/*    try {
+                try {
                     DataBase.getInstance().ExecuteQuery(rol.generarRevokeSql());
                     DataBase.getInstance().ExecuteQuery(nuevoRol.generarSqlRolUsuario());
                     //*/System.out.println(rol.generarRevokeSql());System.out.println(nuevoRol.generarSqlRolUsuario());
@@ -129,10 +129,10 @@ public class CrearRoleController implements Initializable {
                     roles.agregarRol(nuevoRol);
                     InformationDialog("Rol Modificado!");
                     stage.close();
-                /*} catch (SQLException ex) {
+                } catch (SQLException ex) {
                     Logger.getLogger(CrearPermisoController.class.getName()).log(Level.SEVERE, null, ex);
                     this.ExceptionDialog(ex);
-                }*/}
+                }
         }
     }
     
@@ -167,7 +167,7 @@ public class CrearRoleController implements Initializable {
         rol = r;
         nombre.setText(r.getNombre());
         nombre.setDisable(!crear);
-        desc.setText(rol.getDesc());
+//        desc.setText(rol.getDesc());
         nuevoRol = new Rol(rol);
         Privilegios.getInstance().getPermisos().stream().forEach((p) -> {
             masterDataPermisos.add(new PermisoSeleccionable(p, nuevoRol, rol.getPermisos().contains(p.getHashCode())));

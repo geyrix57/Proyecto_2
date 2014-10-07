@@ -43,8 +43,6 @@ public class CrearPermisoController implements Initializable {
     @FXML
     TextField nombre;
     @FXML
-    TextField desc;
-    @FXML
     Label tabla;
     @FXML
     TableView<Columna> columnas;
@@ -102,37 +100,36 @@ public class CrearPermisoController implements Initializable {
     private void guardarAction(ActionEvent event) {
         if(crear){
             String nom = nombre.getText();
-            String des = desc.getText();
-            if(des.equals("")) perm.setDesc("Sin descripcion.");
-            else perm.setDesc(des);
+            /*if(des.equals("")) perm.setDesc("Sin descripcion.");
+            else perm.setDesc(des);*/
             if(nom.equals(""))  ErrorDialog("Error Nombre","Debe proporcionar un nombre valido.");
             else{
                 perm.setNombre(nom);
                 if(!priv.existe(perm))
                     if(!perm.tienePermisos())ErrorDialog("Error Privilegios","Debe selecionar al menos un privilegio.");
-                    else{
-                    /*try {
+                    else
+                    try {
                         DataBase.getInstance().ExecuteQuery(perm.generarSqlRole());
                         DataBase.getInstance().ExecuteQuery(perm.generarSql());
                         //*/System.out.println(perm.generarSql());
                         priv.agregarPermiso(perm);
                         InformationDialog("Permiso creado Correctamente!");
                         stage.close();
-                    /*} catch (SQLException ex) {
+                    } catch (SQLException ex) {
                         Logger.getLogger(CrearPermisoController.class.getName()).log(Level.SEVERE, null, ex);
                         this.ExceptionDialog(ex);
-                    }*/}
+                    }
                 else ErrorDialog("Error Nombre","Ya existe un permiso con ese nombre");
             }
         }
         else{ //modificar
-            String des = desc.getText();
+            /*String des = desc.getText();
             if(des.equals("")) nuevoPerm.setDesc("Sin descripcion.");
-            else nuevoPerm.setDesc(des);
+            else nuevoPerm.setDesc(des);*/
             
             if(!nuevoPerm.tienePermisos())ErrorDialog("Error Privilegios","Debe selecionar al menos un privilegio.");
-             else {
-                /*try {
+             else
+                try {
                     DataBase.getInstance().ExecuteQuery(perm.generarRevokeSql());
                     DataBase.getInstance().ExecuteQuery(nuevoPerm.generarSql());
                     //*/System.out.println(perm.generarRevokeSql());System.out.println(nuevoPerm.generarSql());
@@ -140,10 +137,10 @@ public class CrearPermisoController implements Initializable {
                     priv.agregarPermiso(nuevoPerm);
                     InformationDialog("Permiso Modificado!");
                     stage.close();
-                /*} catch (SQLException ex) {
+                } catch (SQLException ex) {
                     Logger.getLogger(CrearPermisoController.class.getName()).log(Level.SEVERE, null, ex);
                     this.ExceptionDialog(ex);
-                }*/}
+                }
         }
     }
 
@@ -193,7 +190,6 @@ public class CrearPermisoController implements Initializable {
             perm = p;
             nuevoPerm = new Permiso(perm);
             nombre.setText(perm.getNombre());
-            desc.setText(perm.getDesc());
         }
         actualizarTabla();
     }

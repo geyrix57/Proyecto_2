@@ -66,7 +66,7 @@ public class SendMail {
 
     private static final Properties properties = new Properties();
     private static Session session;
-    private static String asunto="Usuario Nuevo";
+    private static String asunto = "Usuario Nuevo";
     
 
 }

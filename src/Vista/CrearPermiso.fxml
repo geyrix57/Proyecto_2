@@ -67,16 +67,6 @@
                               <TextField fx:id="nombre" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="74.0" prefWidth="200.0">
-                           <children>
-                              <Label text="Descripcion">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="desc" prefHeight="25.0" prefWidth="200.0" />
-                           </children>
-                        </VBox>
                         <Button fx:id="guardar" mnemonicParsing="false" onAction="#guardarAction" text="Guardar" />
                      </children>
                   </HBox>

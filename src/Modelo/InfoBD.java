@@ -7,8 +7,11 @@ package Modelo;
 
 import Modelo.BaseDatos.DataBase;
 import Modelo.Clasificacion.Permiso;
+import Modelo.Clasificacion.Rol;
 import Modelo.Entidades.Columna;
 import Modelo.Entidades.ObjetoBD;
+import Modelo.EsquemaClasificacion.Privilegios;
+import Modelo.EsquemaClasificacion.Roles;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -90,10 +93,54 @@ public class InfoBD {
         result.getStatement().close();
         return data;
     }
+    
+    public void cargarRoles() throws SQLException{
+        String sql = "SELECT ROLE FROM DBA_ROLES";
+        Privilegios privs = Privilegios.getInstance();
+        Roles roles = Roles.getInstance();
+        ArrayList<Permiso> permisos = new ArrayList();
+        ArrayList<Rol> rols = new ArrayList();
+        ResultSet result = this.database.ExecuteQuery(sql);
+        while (result.next()) {
+            String cname = result.getString("ROLE");
+            if(cname.contains("CL_")) permisos.add(new Permiso(cname,true));
+            else rols.add(new Rol(cname));
+        }
+        result.getStatement().close();
+        for(Permiso p:permisos){
+            sql = "SELECT GRANTEE,TABLE_NAME,PRIVILEGE FROM DBA_TAB_PRIVS WHERE GRANTEE='"+p.getNombre()+"'";
+            result = this.database.ExecuteQuery(sql);
+            while (result.next()) {
+                p.setTabla(result.getString("TABLE_NAME"));
+                if(result.getString("PRIVILEGE").contains("SELECT")) p.setSelect(true);
+                else if(result.getString("PRIVILEGE").contains("DELETE")) p.setDelete(true);
+            }
+            result.getStatement().close();
+            sql = "SELECT GRANTEE,TABLE_NAME,PRIVILEGE,COLUMN_NAME FROM DBA_COL_PRIVS WHERE GRANTEE='"+p.getNombre()+"'";
+            result = this.database.ExecuteQuery(sql);
+            while (result.next()) {
+                p.setTabla(result.getString("TABLE_NAME"));
+                if(result.getString("PRIVILEGE").contains("UPDATE")) p.agregarUpdate(result.getString("COLUMN_NAME"));
+                else if(result.getString("PRIVILEGE").contains("INSERT")) p.agregarInsert(result.getString("COLUMN_NAME"));
+            }
+            result.getStatement().close();
+            privs.agregarPermiso(p);//new permiso p;
+        } 
+        for(Rol r: rols){
+            sql = "SELECT ROLE,GRANTED_ROLE FROM ROLE_ROLE_PRIVS WHERE ROLE='"+r.getNombre()+"'";
+            result = this.database.ExecuteQuery(sql);
+            while (result.next()) {
+                r.agregarPermiso(result.getString("GRANTED_ROLE").hashCode());
+            }
+            result.getStatement().close();
+            roles.agregarRol(r);
+        }
+    }
 
     public boolean cargarDatos() throws SQLException {
         ActualizarTablespace();
         ActualizarListaTablas();
+        cargarRoles();
         return true;
     }
 
