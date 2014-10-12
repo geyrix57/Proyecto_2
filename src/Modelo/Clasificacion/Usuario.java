@@ -114,7 +114,7 @@ public class Usuario {
     
     public String generarDropRole(){
         StringBuilder sql = new StringBuilder();
-        sql.append("DROP USER ").append(this.getSqlName());
+        sql.append("DROP USER ").append(this.getSqlName()).append(" CASCADE");
         return sql.toString();
     }
 

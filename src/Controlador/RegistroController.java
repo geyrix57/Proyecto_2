@@ -369,9 +369,9 @@ public class RegistroController implements Initializable, Observer {
     private void eliminarUsuario(Usuario u){
         if(ComfirmDialog("Eliminar Usuario","¿Esta seguro que quiere eliminar el usuario?")){
             try {
-                basedatos.ExecuteQuery(u.generarRevokeSql());
+                //basedatos.ExecuteQuery(u.generarRevokeSql());
                 basedatos.ExecuteQuery(u.generarDropRole());
-                //*/System.out.println(u.generarRevokeSql());System.out.println(u.generarDropRole());
+            System.out.println(u.generarRevokeSql());System.out.println(u.generarDropRole());
                 usuarios.eliminarUsuario(u);
                 InformationDialog("El usuario ha sido eliminado!!!");
             } catch (SQLException ex) {
