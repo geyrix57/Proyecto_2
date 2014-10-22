@@ -98,7 +98,7 @@ public class Rol {
     
     public String generarDropRole(){
         StringBuilder sql = new StringBuilder();
-        sql.append("DROP ROLE ").append(this.getNombre());
+        sql.append("DROP ROLE ").append(this.getNombre()).append(" CASCADE");
         return sql.toString();
     }
 

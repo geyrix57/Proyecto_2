@@ -119,7 +119,7 @@ public class CrearUsuarioController implements Initializable {
             if(!newUser.tieneRoles())ErrorDialog("Error Rol","Debe selecionar al menos un rol.");
             else
             try {
-                    DataBase.getInstance().ExecuteQuery(user.generarRevokeSql());
+                    //DataBase.getInstance().ExecuteQuery(user.generarRevokeSql());
                     DataBase.getInstance().ExecuteQuery(newUser.generarSqlRolUsuario());
                     //*/System.out.println(user.generarRevokeSql());System.out.println(newUser.generarSqlRolUsuario());
                     usuarios.eliminarUsuario(user);

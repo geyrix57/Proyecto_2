@@ -300,7 +300,7 @@ public class RegistroController implements Initializable, Observer {
     public void eliminarRol(Rol r){
         if(ComfirmDialog("Eliminar Rol","¿Esta seguro que quiere eliminar el Rol?")){
             try {
-                basedatos.ExecuteQuery(r.generarRevokeSql());
+                //basedatos.ExecuteQuery(r.generarRevokeSql());
                 basedatos.ExecuteQuery(r.generarDropRole());
             //*/System.out.println(r.generarRevokeSql());System.out.println(r.generarDropRole());
                 roles.eliminarRol(r);
@@ -371,7 +371,7 @@ public class RegistroController implements Initializable, Observer {
             try {
                 //basedatos.ExecuteQuery(u.generarRevokeSql());
                 basedatos.ExecuteQuery(u.generarDropRole());
-            System.out.println(u.generarRevokeSql());System.out.println(u.generarDropRole());
+            //System.out.println(u.generarRevokeSql());System.out.println(u.generarDropRole());
                 usuarios.eliminarUsuario(u);
                 InformationDialog("El usuario ha sido eliminado!!!");
             } catch (SQLException ex) {
@@ -518,7 +518,7 @@ public class RegistroController implements Initializable, Observer {
         roles.addObserver(this);
         usuarios.addObserver(this);
         
-               basedatos.setConnection("localhost", 1521, "XE", "sys as sysdba", "gkl123");
+//               basedatos.setConnection("localhost", 1521, "XE", "sys as sysdba", "gkl123");
                
         initializeTabTablas();
         initializeTabPermisos();

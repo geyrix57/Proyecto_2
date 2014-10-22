@@ -133,7 +133,7 @@ public class Usuario {
         return sql.append(perm).append(" TO ").append(this.getSqlName()).toString();
     }
     
-    public String generarRevokeSql(){
+    /*public String generarRevokeSql(){
         StringBuilder rev = new StringBuilder("REVOKE ");
         StringBuilder perm = null;
         Roles rls = Roles.getInstance();
@@ -146,7 +146,7 @@ public class Usuario {
             }
         }
         return rev.append(perm).append(" FROM ").append(this.getSqlName()).toString();
-    }
+    }*/
     
     //private String revoke = null;
     //private final StringProperty nombre;
